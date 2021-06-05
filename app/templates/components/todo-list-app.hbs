@@ -2,7 +2,7 @@
   <button class="todo-list-btn todo-list-btn--add" onclick={{action (mut isAddRow) (if isAddRow false true)}}>
     {{if isAddRow "Cancel" "Add new row"}}
   </button>
-  <button class="todo-list-btn todo-list-btn--delete">Delete selected rows</button>
+  {{!--<button class="todo-list-btn todo-list-btn--delete">Delete selected rows</button>--}}
 </div>
 <div class="todo-list-headers">
   {{#each headersData as |key|}}
