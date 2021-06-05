@@ -1,0 +1,9 @@
+
+
+@mixin set-pos-absolute($left:0, $top:0, $width:100%, $height:100%){
+    position: absolute;
+    left:$left;
+    top:$top;
+    width:$width;
+    height:$height;
+}

@@ -1,0 +1,11 @@
+.#{$prefix}{
+    &battery-indicator-wrapper{
+        svg{
+            width: 50px;
+        }
+    }
+    &battery-indicator__level{
+        padding: 10px;
+        font-size: 25px;
+    }
+}

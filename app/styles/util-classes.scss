@@ -1,0 +1,24 @@
+///////////////////////////////////////////////////////////////
+///Flexbox classes
+
+.#{$prefix}{
+    &flex{
+        display:flex;
+    }
+    
+    &align-items__center{
+        align-items: center;
+    }
+    
+    &justify-content__center{
+        justify-content: center;
+    }
+    
+    &text-align__center{
+        text-align: center;
+    }
+    &w-100{
+        width: 100%;
+    }
+}
+

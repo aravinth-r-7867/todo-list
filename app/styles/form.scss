@@ -1,0 +1,36 @@
+/////////////////////////////////////////////////
+///
+
+.#{$prefix}{
+    &checkbox-container{
+        position: relative;
+        input{
+            opacity: 0;
+            @include set-pos-absolute();
+            cursor: pointer;
+        }
+        &__custom{
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            border: 1px solid #ababab;
+            pointer-events: none;
+        }
+        input:checked ~ &__custom{
+            background-color: var(--checkbox-active);
+            border-color: var(--checkbox-active);
+            &::after{
+                content: "";
+                border-width: 0 0 2px 2px;
+                border-color: #fff;
+                border-style: solid;
+                @include set-pos-absolute(20%, 25%, 10px, 5px);
+                transform: rotate(-45deg);
+                display: inline-block;
+            }
+        }
+        &__dark &__custom{
+            border-color: #666;
+        }
+    }
+}

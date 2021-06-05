@@ -1,0 +1,30 @@
+<div class="todo-list-headers">
+  {{#each-in headers as |key value|}}
+    <div class="todo-list-headers__item">
+      {{#if (is-equal key "select")}}
+        {{form-checkbox}}
+      {{else}}
+        <span>
+          {{value}}
+        </span>
+      {{/if}}
+    </div>
+  {{/each-in}}
+</div>
+<div class="todo-list-body">
+  {{#each data as |row|}}
+    <div class="todo-list-body__row">
+      {{#each-in row as |key value|}}
+        <div class="todo-list-body__row__item todo-list-flex todo-list-align-items__center">
+          {{#if (is-equal key "select")}}
+            {{form-checkbox}}
+          {{else}}
+            <span>
+              {{value}}
+            </span>
+          {{/if}}
+        </div>
+      {{/each-in}}
+    </div>
+  {{/each}}
+</div>
