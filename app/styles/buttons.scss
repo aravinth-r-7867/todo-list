@@ -1,0 +1,39 @@
+.#{$prefix} {
+  &btn {
+    padding: 10px;
+    margin: 10px;
+    min-width: 150px;
+    border: none;
+    &,
+    &--small {
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 18px;
+      transition: transform .2s ease-in-out;
+      &:hover {
+        transform: translate(0, 5px);
+      }
+    }
+  }
+  &btn--small {
+    cursor: pointer;
+    color: #fff;
+    padding: 5px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 6px;
+  }
+  &btn--add {
+    background: #446cb3;
+    box-shadow: 0px 5px 0px 0px #3b5998;
+  }
+  &btn--delete {
+    background: #e74c3c;
+    box-shadow: 0px 5px 0px 0px #ce3323;
+  }
+  &btn--save {
+    background: #2ecc71;
+    box-shadow: 0px 5px 0px 0px #15b358;
+  }
+}

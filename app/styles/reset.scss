@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Josefin+Sans');
 
-body{
-    font-size: var(--base-font);
-    font-family: Roboto;
-    background-color: var(--bg);
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: var(--base-font);
 }
 
-*, *::after, *::before{
-    box-sizing: border-box;
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }

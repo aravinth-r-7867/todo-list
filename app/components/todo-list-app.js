@@ -1,58 +1,40 @@
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   classNames: ['todo-list-addon-main-wrapper'],
+  firebase: service('firebase-api-handling'),
+  isAddRow: false,
   init() {
     this._super(...arguments);
-    this.set('headers', {
-      select: false,
-      title: 'Name',
-      desc: 'Description',
-      priority: 'Priority',
-      status: 'Status',
-      notes: 'Notes',
+    this.firebase.setup();
+    this.set('newRowData', {
+      'select': false,
+      'name': '',
+      'description': '',
+      'priority': '',
+      'status': ''
     });
-    this.set('data', [
-      {
-        select: false,
-        title: 'A dummy task',
-        desc: 'A dummy description',
-        priority: 'Low',
-        status: 'Yet to take',
-        notes: 'This is a simple task to check the case',
-      },
-      {
-        select: false,
-        title: 'A dummy task',
-        desc: 'A dummy description',
-        priority: 'Low',
-        status: 'Yet to take',
-        notes: 'This is a simple task to check the case',
-      },
-      {
-        select: false,
-        title: 'A dummy task',
-        desc: 'A dummy description',
-        priority: 'Low',
-        status: 'Yet to take',
-        notes: 'This is a simple task to check the case',
-      },
-      {
-        select: false,
-        title: 'A dummy task',
-        desc: 'A dummy description',
-        priority: 'Low',
-        status: 'Yet to take',
-        notes: 'This is a simple task to check the case',
-      },
-      {
-        select: false,
-        title: 'A dummy task',
-        desc: 'A dummy description',
-        priority: 'Low',
-        status: 'Yet to take',
-        notes: 'This is a simple task to check the case',
-      }
-    ]);
   },
+  mainData: computed('firebase.realData', function() {
+    return this.firebase.realData;
+  }),
+  headersData: computed('firebase.headers', function() {
+    return this.firebase.headers;
+  }),
+  addRow(){
+    if(!this.newRowData.name){
+      alert('Name cannot be empty');
+      return;
+    }
+    this.firebase.addNewRow(this.newRowData);
+    this.set('newRowData', {
+      'select': false,
+      'name': '',
+      'description': '',
+      'priority': '',
+      'status': ''
+    });
+  }
 });
