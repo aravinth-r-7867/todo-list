@@ -18,35 +18,38 @@
     border-radius: 5px;
     display: grid;
     grid-template-rows: min-content min-content 1fr;
-}
-&headers {
+  }
+  &headers {
     @extend %todo-list-common-row-props;
     color: var(--base-clr-contrast);
-    &__item {
-        @extend %todo-list-common-cell-props;
-        font-weight: bold;
-        cursor: pointer;
-        text-transform: uppercase;
-        background-color: var(--head-bg);
-        transition: background 0.25s ease-in-out;
-        span {
-            position: relative;
-            &::before {
-                content: "";
-                @include set-pos-absolute(0, 100%, 0, 1px);
-                transition: width 0.25s ease-in-out;
-                background-color: var(--base);
-            }
-        }
-        &:hover {
-            background-color: var(--head-bg__hover);
-            span::before {
-                width: 100%;
-            }
-        }
+    &[data-loader="true"]{
+      grid-template-columns: 1fr;
     }
-}
-&body {
+    &__item {
+      @extend %todo-list-common-cell-props;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      background-color: var(--head-bg);
+      transition: background 0.25s ease-in-out;
+      span {
+        position: relative;
+        &::before {
+          content: "";
+          @include set-pos-absolute(0, 100%, 0, 1px);
+          transition: width 0.25s ease-in-out;
+          background-color: var(--base);
+        }
+      }
+      &:hover {
+        background-color: var(--head-bg__hover);
+        span::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+  &body {
     background-color: var(--base);
     box-shadow: var(--card-shadow);
     &__row {
@@ -56,25 +59,41 @@
         @extend %todo-list-common-cell-props;
       }
     }
-    &__add-row{
-        grid-template-columns: repeat(4, 1fr);
-        @media only screen and (max-width: 600px) {
-            grid-template-columns: 100%;
-        }
+    &__add-row {
+      grid-template-columns: repeat(4, 1fr);
+      @media only screen and (max-width: 600px) {
+        grid-template-columns: 100%;
+      }
     }
   }
-  &table-actions{
-      padding: 5px 0;
+  &table-actions {
+    padding: 5px 0;
   }
-  &add-item-input{
-      min-height: 35px;
-      outline: none;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 10px 5px;
-      font-family: 'Josefin Sans', sans-serif;
-      &:focus, &:active{
-        border-color: var(--border-focus);
+  &add-item-input {
+    min-height: 35px;
+    outline: none;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 5px;
+    font-family: "Josefin Sans", sans-serif;
+    &:focus,
+    &:active {
+      border-color: var(--border-focus);
     }
+  }
+  &loader-wrapper{
+    padding: 10px 0;
+    svg{
+      height: 25px;
+      &, & rect{
+        width: 100%;
+      }
+      & rect{
+        height:100%;
+      }
+    }
+  }
+  &loader__body svg{
+    height: 50vh;
   }
 }

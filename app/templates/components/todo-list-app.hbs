@@ -14,24 +14,31 @@
 {{!Table action ends}}
 
 {{!Table header starts}}
-<div class="todo-list-headers">
-  <div class="todo-list-headers__item">
-    {{!-- <div class="todo-list-checkbox-container">
+<div class="todo-list-headers" data-loader={{unless headersData "true"}}>
+  {{!-- <div class="todo-list-headers__item">
+    <div class="todo-list-checkbox-container">
       {{input type="checkbox" checked=isSelectAllRows}}
       <div class="todo-list-checkbox-container__custom"></div>
-    </div> --}}
-  </div>
-  {{#each headersData as |key|}}
-    <div class="todo-list-headers__item">
-      <span>
-        {{key}}
-      </span>
     </div>
-  {{/each}}
+  </div>--}}
+  {{#if headersData}}
+   <div class="todo-list-headers__item"></div>
+    {{#each headersData as |key|}}
+      <div class="todo-list-headers__item">
+        <span>
+          {{key}}
+        </span>
+      </div>
+    {{/each}}
+  {{else}}
+   
+    {{todo-list-loader}}
+  {{/if}}
 </div>
 {{!Table action ends}}
 
 {{!Table body starts}}
+{{#if mainData}}
 <div class="todo-list-body">
   {{#each mainData as |row index|}}
     <div class="todo-list-body__row">
@@ -107,4 +114,7 @@
     </div>
   {{/if}}
 </div>
+{{else}}
+{{todo-list-loader class="todo-list-loader__body"}}
+{{/if}}
 {{!Table action ends}}
