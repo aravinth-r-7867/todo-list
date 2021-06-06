@@ -15,6 +15,15 @@ export default Service.extend({
     });
     this.setEventListenerForMainData();
     this.setEventListenerForheaderData();
+    // for(let i=0; i<100; i++){
+    //   firebase.database().ref('list/'+ i).set({
+    //     "isSelect": false,
+    //     "name": 'test' + i,
+    //     "description": 'test' + i,
+    //     "status": 'test' + i,
+    //     "priority": 'test' + i
+    // });
+    // }
   },
   realData:null,
   headers:null,
@@ -30,11 +39,17 @@ export default Service.extend({
   },
   addNewRow({select, name, description, status, priority}){
       firebase.database().ref('list/'+ this.realData.length).set({
-        "select": select,
+        "isSelect": select,
         "name": name,
         "description": description,
         "status": status,
         "priority": priority
     });
+  },
+  deleteRows(id){
+    firebase.database().ref(`list/${id}`).remove();
+  },
+  deleteAllRows(){
+    firebase.database().ref('list').set(null);
   }
 });
