@@ -7,7 +7,7 @@
 
 %todo-list-common-row-props {
   display: grid;
-  grid-template-columns: min-content repeat(4, 1fr);
+  grid-template-columns: 40px repeat(4, 1fr);
 }
 
 .#{$prefix} {

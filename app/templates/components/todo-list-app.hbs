@@ -8,7 +8,7 @@
   </button>
   <button
     class="todo-list-btn todo-list-btn--delete"
-    onclick={{action deleteAllRows}}
+    onclick={{action deleteRows}}
   >Delete selected rows</button>
 </div>
 {{!Table action ends}}
@@ -16,10 +16,10 @@
 {{!Table header starts}}
 <div class="todo-list-headers">
   <div class="todo-list-headers__item">
-    <div class="todo-list-checkbox-container">
+    {{!-- <div class="todo-list-checkbox-container">
       {{input type="checkbox" checked=isSelectAllRows}}
       <div class="todo-list-checkbox-container__custom"></div>
-    </div>
+    </div> --}}
   </div>
   {{#each headersData as |key|}}
     <div class="todo-list-headers__item">
@@ -36,10 +36,10 @@
   {{#each mainData as |row index|}}
     <div class="todo-list-body__row">
       <div
-        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center"
+        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center todo-list-justify-content__center"
       >
         <div class="todo-list-checkbox-container">
-          {{input type="checkbox" checked=(util-or isSelectAllRows row.isSelect)}}
+          {{input type="checkbox" checked=row.isSelect}}
           <div class="todo-list-checkbox-container__custom"></div>
         </div>
       </div>
