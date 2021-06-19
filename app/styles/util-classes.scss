@@ -23,5 +23,14 @@
     &p-10{
         padding: 10px;
     }
+
+    &border{
+        border: 1px solid #ababab;
+        border-radius: 10px;
+    }
+
+    &cursor-pointer {
+        cursor: pointer;
+    }
 }
 

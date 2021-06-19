@@ -1,0 +1,37 @@
+<div class="todo-list-row--panel todo-list-p-10 todo-list-border">
+    <div class="todo-list-row--panel-header">
+        <div class="todo-list-row--panel-title">
+            {{#if isTitleEdit}}
+                {{input value=data.name class="todo-list-title-edit"}}
+                <img onclick={{action toggleEditTitle}} src="/images/tick.png" alt="edit" class="todo-list-row-icon__sm todo-list-cursor-pointer">
+            {{else}}
+                {{data.name}}
+                <img onclick={{action toggleEditTitle}} src="/images/pencil.png" alt="edit" class="todo-list-row-icon__sm todo-list-cursor-pointer">
+            {{/if}}
+        </div>
+        <div class="todo-list-status-options">
+            <select onchange={{action "changeStatus"}}>
+                {{#each statusOptions as |option1|}}
+                    <option value={{option1.value}} selected={{util-equal data.status option1.value}}>{{option1.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+        {{todo-list-star-rating data=data index=index}}
+        <img onclick={{action toggleItem}} src="/images/{{if isOpen 'collapse' 'expand'}}.png" alt="Expand the item" class="todo-list-row-icon todo-list-cursor-pointer">
+    </div>
+    <div class="todo-list-row--panel-body">
+        <div class="todo-list-desc-title">
+            <h3>Description</h3>
+            {{#if isDescEdit}}
+                <img onclick={{action toggleEditDesc}} src="/images/tick.png" alt="edit" class="todo-list-row-icon__sm todo-list-cursor-pointer">
+            {{else}}
+                <img onclick={{action toggleEditDesc}} src="/images/pencil.png" alt="edit" class="todo-list-row-icon__sm todo-list-cursor-pointer">
+            {{/if}}
+        </div>
+        {{#if isDescEdit}}
+            {{textarea value=data.description}}
+        {{else}}
+            {{data.description}}
+        {{/if}}
+    </div>
+</div>

@@ -15,41 +15,54 @@ export default Service.extend({
     });
     this.setEventListenerForMainData();
     this.setEventListenerForheaderData();
-    // for(let i=0; i<100; i++){
+    // for(let i=0; i<10; i++){
     //   firebase.database().ref('list/'+ i).set({
-    //     "isSelect": false,
     //     "name": 'test' + i,
     //     "description": 'test' + i,
-    //     "status": 'test' + i,
-    //     "priority": 'test' + i
-    // });
+    //     "status": 1,
+    //     "priority": 4
+    //   });
     // }
   },
-  realData:null,
-  headers:null,
-  setEventListenerForMainData(){
-    firebase.database().ref('list').on('value', (snapshot)=>{
-        this.set('realData', snapshot.val());
-    });
+  realData: null,
+  headers: null,
+  setEventListenerForMainData() {
+    firebase
+      .database()
+      .ref("list")
+      .on("value", (snapshot) => {
+        this.set("realData", snapshot.val());
+      });
   },
-  setEventListenerForheaderData(){
-    firebase.database().ref('headers').on('value', (snapshot)=>{
-        this.set('headers', snapshot.val());
-    });
+  setEventListenerForheaderData() {
+    firebase
+      .database()
+      .ref("headers")
+      .on("value", (snapshot) => {
+        this.set("headers", snapshot.val());
+      });
   },
-  addNewRow({select, name, description, status, priority}){
-      firebase.database().ref('list/'+ this.realData.length).set({
-        "isSelect": select,
-        "name": name,
-        "description": description,
-        "status": status,
-        "priority": priority
-    });
+  addNewRow({ name, description, status, priority }) {
+    firebase
+      .database()
+      .ref("list/" + this.realData.length)
+      .set({
+        name: name,
+        description: description,
+        status: status,
+        priority: priority,
+      });
   },
-  deleteRows(id){
+  deleteRows(id) {
     firebase.database().ref(`list/${id}`).remove();
   },
-  deleteAllRows(){
-    firebase.database().ref('list').set(null);
-  }
+  deleteAllRows() {
+    firebase.database().ref("list").set(null);
+  },
+  modifyData(type, modifiedData, index) {
+    firebase
+      .database()
+      .ref("list/" + index + "/" + type)
+      .set(modifiedData);
+  },
 });

@@ -1,99 +1,43 @@
-////////////////////////////////////////////////
-//Main addon styles starts here
-
-%todo-list-common-cell-props {
-  padding: 10px;
-}
-
-%todo-list-common-row-props {
-  display: grid;
-  grid-template-columns: 40px repeat(4, 1fr);
-}
-
 .#{$prefix} {
+  $action-center-height: 70px;
+
   &addon-main-wrapper {
-    width: 90vw;
-    min-height: 90vh;
-    margin: 5vh auto;
-    border-radius: 5px;
     display: grid;
-    grid-template-rows: min-content min-content 1fr;
-  }
-  &headers {
-    @extend %todo-list-common-row-props;
-    color: var(--base-clr-contrast);
-    &[data-loader="true"]{
-      grid-template-columns: 1fr;
-    }
-    &__item {
-      @extend %todo-list-common-cell-props;
-      font-weight: bold;
-      cursor: pointer;
-      text-transform: uppercase;
-      background-color: var(--head-bg);
-      transition: background 0.25s ease-in-out;
-      span {
-        position: relative;
-        &::before {
-          content: "";
-          @include set-pos-absolute(0, 100%, 0, 1px);
-          transition: width 0.25s ease-in-out;
-          background-color: var(--base);
-        }
-      }
-      &:hover {
-        background-color: var(--head-bg__hover);
-        span::before {
-          width: 100%;
-        }
-      }
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+    @include target-desktop {
+      padding: 0 50px;
     }
   }
-  &body {
-    background-color: var(--base);
-    box-shadow: var(--card-shadow);
-    &__row {
-      @extend %todo-list-common-row-props;
-      border-bottom: 1px solid var(--border);
-      &__item {
-        @extend %todo-list-common-cell-props;
-      }
-    }
-    &__add-row {
-      grid-template-columns: repeat(4, 1fr);
-      @media only screen and (max-width: 600px) {
-        grid-template-columns: 100%;
-      }
-    }
+
+  &main-body {
+    display: grid;
+    grid-gap: 10px 0;
+    max-height: calc(100vh - (#{$action-center-height} + 25px));
+    overflow: auto;
+    overflow: overlay;
+    padding: 10px;
+    background-color: #fff;
   }
-  &table-actions {
-    padding: 5px 0;
+
+  &action-center {
+    height: $action-center-height;
+    position: sticky;
+    top: 5px;
   }
-  &add-item-input {
-    min-height: 35px;
-    outline: none;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 10px 5px;
-    font-family: "Josefin Sans", sans-serif;
-    &:focus,
-    &:active {
-      border-color: var(--border-focus);
+
+  &loader-wrapper {
+
+    svg {
+      height: 45px;
+      width: 100%;
     }
-  }
-  &loader-wrapper{
-    padding: 10px 0;
-    svg{
-      height: 25px;
-      &, & rect{
+
+    clipPath {
+      rect {
+        height: 100%;
         width: 100%;
       }
-      & rect{
-        height:100%;
-      }
     }
-  }
-  &loader__body svg{
-    height: 50vh;
   }
 }

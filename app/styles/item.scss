@@ -1,0 +1,138 @@
+.#{$prefix} {
+  &row {
+    &--panel {
+      display: grid;
+      grid-template-rows: min-content 1fr;
+    }
+
+    &--panel-header {
+      align-items: center;
+      display: grid;
+      grid-gap: 0 25px;
+      @include target-desktop {
+        grid-template-columns: 1fr max-content max-content min-content;
+      }
+      @include target-mobile {
+        grid-gap: 25px 0;
+        grid-template-rows: 1fr max-content max-content min-content;
+        grid-template-columns: 1fr min-content;
+      }
+    }
+
+    &--panel-title {
+      align-items: center;
+      display: grid;
+      grid-gap: 0 5px;
+      grid-template-columns: max-content min-content;
+    }
+
+    &-icon {
+      height: 25px;
+      width: 25px;
+
+      &__sm {
+        height: 15px;
+        width: 15px;
+      }
+    }
+
+    &[data-open] &--panel {
+      background-color: #fff;
+      height: 80vh;
+      left: 10vw;
+      position: fixed;
+      top: 10vh;
+      width: 80vw;
+      z-index: 10000;
+    }
+
+    &[data-open] {
+      &::before {
+        background-color: rgba(0, 0, 0, 0.25);
+        content: "";
+        height: 100vh;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        z-index: 9999;
+      }
+    }
+
+    &--panel-body {
+      display: none;
+
+      textarea {
+        height: 100px;
+        resize: vertical;
+        width: 100%;
+      }
+    }
+
+    &[data-open] &--panel-body {
+      display: block;
+    }
+  }
+
+  &title-edit {
+    border: solid #ababab;
+    border-width: 0 0 1px;
+
+    &:focus {
+      border-color: #39f;
+      outline: none;
+    }
+  }
+
+  &status-options {
+    @include target-mobile {
+      grid-row: 2/3;
+      grid-column: 1/2;
+    }
+  }
+
+  &desc-title {
+    align-items: center;
+    display: grid;
+    grid-gap: 0 5px;
+    grid-template-columns: max-content min-content;
+  }
+}
+
+/////Star rating UI
+
+.#{$prefix}star-rating {
+    @include target-mobile {
+        grid-row: 3/4;
+    }
+}
+
+.star-checkbox {
+  position: relative;
+
+  input {
+    &[type="checkbox"] {
+      cursor: pointer;
+      height: 100%;
+      left: 0;
+      margin: 0;
+      opacity: 0;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &[type="checkbox"]:checked ~ .sc--icon {
+      fill: #d3af37;
+    }
+  }
+}
+
+.sc--icon {
+  height: 25px;
+  pointer-events: none;
+  transform: 0.2s cubic-bezier(0.5, -0.75, 0.7, 2);
+  transition: fill 0.25s ease-in-out;
+  width: 25px;
+}

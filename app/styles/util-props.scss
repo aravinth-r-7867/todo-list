@@ -7,3 +7,15 @@
     width:$width;
     height:$height;
 }
+
+@mixin target-mobile {
+    @media screen and (max-width: 480px) {
+        @content
+    }
+}
+
+@mixin target-desktop {
+    @media screen and (min-width: 480px) {
+        @content
+    }
+}

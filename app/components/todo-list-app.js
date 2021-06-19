@@ -5,17 +5,10 @@ import { computed } from "@ember/object";
 export default Component.extend({
   classNames: ["todo-list-addon-main-wrapper"],
   firebase: service("firebase-api-handling"),
-  isAddRow: false,
-  isSelectAllRows: false,
+  openedItemIndex: null,
   init() {
     this._super(...arguments);
     this.firebase.setup();
-    this.set("newRowData", {
-      name: "",
-      description: "",
-      priority: "",
-      status: "",
-    });
   },
   mainData: computed("firebase.realData", function () {
     return (
@@ -24,28 +17,13 @@ export default Component.extend({
       []
     );
   }),
-  headersData: computed("firebase.headers", function () {
-    return this.firebase.headers;
-  }),
-  addRow() {
-    if (!this.newRowData.name) {
-      alert("Name cannot be empty");
-      return;
-    }
-    this.firebase.addNewRow(this.newRowData);
-    this.set("newRowData", {
-      name: "",
-      description: "",
-      priority: "",
-      status: "",
+  addNewRow(){
+    this.set('openedItemIndex', this.firebase.realData.length);
+    this.firebase.addNewRow({
+      name: 'Title for new task',
+      description: 'A dummy description for new task',
+      status: 0,
+      priority: 0
     });
-  },
-  deleteRows() {
-    this.firebase.realData.forEach((item, index) => {
-      item.isSelect && this.firebase.deleteRows(index);
-    });
-  },
-  deleteAllRows(){
-    this.isSelectAllRows && this.firebase.deleteAllRows();
   }
 });

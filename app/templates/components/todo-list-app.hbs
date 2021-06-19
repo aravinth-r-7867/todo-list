@@ -1,120 +1,18 @@
-{{!Table action starts}}
-<div class="todo-list-table-actions">
-  <button
-    class="todo-list-btn todo-list-btn--add"
-    onclick={{action (mut isAddRow) (if isAddRow false true)}}
-  >
-    {{if isAddRow "Cancel" "Add new row"}}
+<div class="todo-list-action-center">
+  <button onclick={{action addNewRow}} class="todo-list-btn todo-list-btn--add">
+    Add item
   </button>
-  <button
-    class="todo-list-btn todo-list-btn--delete"
-    onclick={{action deleteRows}}
-  >Delete selected rows</button>
+  {{!-- <button class="todo-list-btn todo-list-btn--delete">
+    Delete item
+  </button> --}}
 </div>
-{{!Table action ends}}
-
-{{!Table header starts}}
-<div class="todo-list-headers" data-loader={{unless headersData "true"}}>
-  {{!-- <div class="todo-list-headers__item">
-    <div class="todo-list-checkbox-container">
-      {{input type="checkbox" checked=isSelectAllRows}}
-      <div class="todo-list-checkbox-container__custom"></div>
-    </div>
-  </div>--}}
-  {{#if headersData}}
-   <div class="todo-list-headers__item"></div>
-    {{#each headersData as |key|}}
-      <div class="todo-list-headers__item">
-        <span>
-          {{key}}
-        </span>
-      </div>
+<div class="todo-list-main-body todo-list-border">
+  {{#if mainData}}
+    {{#each mainData as |row index|}}
+      {{todo-list-item data=row index=index isOpen=(util-equal index openedItemIndex)}}
     {{/each}}
   {{else}}
-   
-    {{todo-list-loader}}
+    {{todo-list-loader count=10}}
   {{/if}}
+    
 </div>
-{{!Table action ends}}
-
-{{!Table body starts}}
-{{#if mainData}}
-<div class="todo-list-body">
-  {{#each mainData as |row index|}}
-    <div class="todo-list-body__row">
-      <div
-        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center todo-list-justify-content__center"
-      >
-        <div class="todo-list-checkbox-container">
-          {{input type="checkbox" checked=row.isSelect}}
-          <div class="todo-list-checkbox-container__custom"></div>
-        </div>
-      </div>
-      {{#each headersData as |key|}}
-        <div
-          class="todo-list-body__row__item todo-list-flex todo-list-align-items__center"
-        >
-          <span>
-            {{get row key}}
-          </span>
-        </div>
-      {{/each}}
-    </div>
-  {{/each}}
-  {{#if isAddRow}}
-    <div class="todo-list-body__row todo-list-body__add-row">
-      <div
-        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center"
-      >
-        {{input
-          type="text"
-          class="todo-list-add-item-input todo-list-w-100"
-          value=newRowData.name
-          placeholder="Name"
-        }}
-      </div>
-      <div
-        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center"
-      >
-        {{input
-          type="text"
-          class="todo-list-add-item-input todo-list-w-100"
-          value=newRowData.description
-          placeholder="Description"
-        }}
-      </div>
-      <div
-        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center"
-      >
-        {{input
-          type="text"
-          class="todo-list-add-item-input todo-list-w-100"
-          value=newRowData.priority
-          placeholder="Priority"
-        }}
-      </div>
-      <div
-        class="todo-list-body__row__item todo-list-flex todo-list-align-items__center"
-      >
-        {{input
-          type="text"
-          class="todo-list-add-item-input todo-list-w-100"
-          value=newRowData.status
-          placeholder="Status"
-        }}
-      </div>
-    </div>
-    <div
-      class="todo-list-flex todo-list-align-items__center todo-list-justify-content__center todo-list-p-10"
-    >
-      <button
-        class="todo-list-btn--small todo-list-btn--save"
-        onclick={{action addRow}}
-      >Save</button>
-    </div>
-  {{/if}}
-</div>
-{{else}}
-{{todo-list-loader class="todo-list-loader__body"}}
-{{/if}}
-{{!Table action ends}}

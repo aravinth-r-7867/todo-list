@@ -1,9 +1,8 @@
 .#{$prefix} {
   &btn {
+    border: 0;
+    min-width: 125px;
     padding: 10px;
-    margin: 10px;
-    min-width: 150px;
-    border: none;
     &,
     &--small {
       border-radius: 6px;

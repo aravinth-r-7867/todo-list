@@ -3,6 +3,8 @@
 body {
   font-family: 'Josefin Sans', sans-serif;
   font-size: var(--base-font);
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 *,
