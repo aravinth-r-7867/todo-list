@@ -17,7 +17,11 @@
             </select>
         </div>
         {{todo-list-star-rating data=data index=index}}
-        <img onclick={{action toggleItem}} src="/images/{{if isOpen 'collapse' 'expand'}}.png" alt="Expand the item" class="todo-list-row-icon todo-list-cursor-pointer">
+        {{#if isOpen}}
+            <img onclick={{action toggleItem}} src="/images/collapse.png" alt="Collapse the item" class="todo-list-row-icon todo-list-cursor-pointer">
+        {{else}}
+            <img onclick={{action toggleItem}} src="/images/expand.png" alt="Expand the item" class="todo-list-row-icon todo-list-cursor-pointer">
+        {{/if}}
     </div>
     <div class="todo-list-row--panel-body">
         <div class="todo-list-desc-title">
