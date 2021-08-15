@@ -34,3 +34,13 @@
         }
     }
 }
+
+/////////////////////////////////////////////////
+//// Form validation
+
+.form-submitted {
+    input:not(:placeholder-shown):invalid {
+      border: 1px solid red;
+    }
+}
+

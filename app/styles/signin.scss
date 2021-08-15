@@ -1,0 +1,115 @@
+.sign-in- {
+
+  &wrapper {
+    align-items: center;
+    background: #02AAB0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #00CDAC, #02AAB0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    min-width: 100vw;
+
+    @include target-tablet {
+      grid-template-columns: 0 1fr;
+    }
+  }
+
+  &form-submit-section {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  &main {
+    display: flex;
+    justify-content: center;
+  }
+
+  &form {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+    max-width: 500px;
+    padding: 30px;
+    width: 80%;
+  }
+
+  &form-header {
+    margin-bottom: 15px;
+  }
+
+  &input, &btn {
+    border: 0;
+    border-radius: 15px;
+    width: 100%;
+  }
+  
+  &input {
+    margin: 10px 0;
+    outline: none;
+    padding: 10px 15px 10px 30px;
+  }
+  
+  &mail {
+    background: #e7e7e7 url('/images/mail.png') 10px center / 15px no-repeat;
+  }
+  
+  &pwd {
+    background: #e7e7e7 url('/images/pwd.png') 10px center / 15px no-repeat;
+  }
+  
+  &btn {
+    padding: 10px 15px;
+    background-color: #70b554;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  &btn-link {
+    align-items: center;
+    display: flex;
+    font-size: 15px;
+    justify-content: center;
+    margin: 10px auto;
+  }
+
+  &other-options {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  &btn-arrow {
+    margin: 0 3px;
+    width: 15px;
+  }
+
+  &pwd-toggle {
+    cursor: pointer;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 27px;
+    transform: translateY(-50%);
+    width: 20px;
+  }
+
+  &pwd-field {
+    position: relative;
+  }
+
+  &error-msg{
+    font-size: 12px;
+    color: red;
+  }
+
+  &success-msg{
+    font-size: 12px;
+    color: green;
+  }
+}
+
+.signin-form-bg {
+  background: url('/images/signin-form-wallpaper.jpg') center center / cover no-repeat;
+  min-height: 100%;
+}

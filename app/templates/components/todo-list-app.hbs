@@ -1,10 +1,15 @@
-<div class="todo-list-action-center">
+<div class="todo-list-action-center todo-list-align-items__center">
   <button onclick={{action addNewRow}} class="todo-list-btn todo-list-btn--add">
     Add item
   </button>
   {{!-- <button class="todo-list-btn todo-list-btn--delete">
     Delete item
   </button> --}}
+  <div class="account-details">
+      {{#link-to 'account'}}
+        <img class="todo-list-icon__lg todo-list-cursor-pointer" src="/images/user.png"/>
+      {{/link-to}}
+    </div>
 </div>
 <div class="todo-list-main-body todo-list-border">
   {{#if mainData}}

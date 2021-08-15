@@ -3,6 +3,9 @@ import firebase from "firebase";
 
 export default Service.extend({
   setup() {
+    if (firebase.apps.length) {
+      return;
+    }
     firebase.initializeApp({
       apiKey: "AIzaSyCzoqwBuBiLEfHY1KehP5vMDEHwY86oTtc",
       authDomain: "todo-list-ca9c9.firebaseapp.com",
@@ -23,6 +26,37 @@ export default Service.extend({
     //     "priority": 4
     //   });
     // }
+  },
+  async isExistingUser() {
+    const promise = new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        user ? resolve(user) : reject();
+      });
+    });
+    return await promise;
+  },
+  signInUser(email, password) {
+    return firebase
+    .auth()
+    .signInWithEmailAndPassword(
+      email,
+      password
+    );
+  },
+  createNewUser(email, password) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password);
+  },
+  sendResetEmail(email){
+    return firebase
+    .auth()
+    .sendPasswordResetEmail(email)
+  },
+  sendVerifyEmailLink(){
+    firebase.auth().currentUser.sendEmailVerification()
+    .then(() => {
+      // Email verification sent!
+      // ...
+    });
   },
   realData: null,
   headers: null,

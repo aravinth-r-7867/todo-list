@@ -1,0 +1,188 @@
+<div class="signin-form-bg"></div>
+
+<div class="sign-in-main">
+  <div class="sign-in-form">
+    {{#if (util-and showLoginForm (util-not showResetPwdForm))}}
+      {{!-- Login form --}}
+        <h2 class="sign-in-form-header">Login</h2>
+        <form id="loginForm" {{action signInUser on="submit"}}>
+          <fieldset>
+            <input
+              class="sign-in-input sign-in-mail"
+              name="email"
+              type="email"
+              placeholder="Email"
+              required
+            />
+          </fieldset>
+          <fieldset class="sign-in-pwd-field">
+            <input
+              class="sign-in-input sign-in-pwd"
+              name="password"
+              type={{if isPwd "password" "text"}}
+              placeholder="Password"
+              required
+            />
+            <img
+              onclick={{action (mut isPwd) (if isPwd false true)}}
+              class="sign-in-pwd-toggle"
+              src="/images/eye{{if isPwd "" "-closed"}}.png"
+            />
+            <p class="sign-in-error-msg">
+              {{#if errMsg}}
+                {{errMsg}}
+              {{/if}}
+            </p>
+          </fieldset>
+          <div class="sign-in-form-submit-section">
+            <input type="submit" value="Login" class="sign-in-btn" />
+            <div class="sign-in-other-options">
+              <button
+                type="button"
+                class="todo-list-btn--link sign-in-btn-link"
+                onclick={{action
+                  (mut showResetPwdForm)
+                  (if showResetPwdForm false true)
+                }}
+              >
+                Forgot password?
+              </button>
+              <button
+                type="button"
+                class="todo-list-btn--link sign-in-btn-link"
+                onclick={{action
+                  (mut showLoginForm)
+                  (if showLoginForm false true)
+                }}
+              >
+                Create new account
+                <img
+                  class="sign-in-btn-arrow"
+                  src="/images/right-arrow.png"
+                  alt="right-arrow"
+                />
+              </button>
+            </div>
+          </div>
+        </form>
+      {{!-- Login form --}}
+    {{else if showResetPwdForm}}
+      {{!-- Reset password form --}}
+        <h2 class="sign-in-form-header">Send reset password link</h2>
+        <form id="ResetPwdForm" {{action sendResetEmail on="submit"}}>
+          <fieldset>
+            <input
+              class="sign-in-input sign-in-mail"
+              name="email"
+              type="email"
+              placeholder="Email"
+              required
+            />
+          </fieldset>
+          <div class="sign-in-form-submit-section">
+            <p class="sign-in-success-msg">
+              {{successMsgOnResetEmailLink}}
+            </p>
+            <input
+              type="submit"
+              value="Send reset password link"
+              class="sign-in-btn"
+            />
+            <div class="sign-in-other-options">
+              <button
+                type="button"
+                class="todo-list-btn--link sign-in-btn-link"
+                onclick={{action
+                  (mut showResetPwdForm)
+                  (if showResetPwdForm false true)
+                }}
+              >
+                <img
+                  class="sign-in-btn-arrow"
+                  src="/images/left-arrow.png"
+                  alt="left-arrow"
+                />
+                Back
+              </button>
+            </div>
+          </div>
+        </form>
+      {{!-- Reset password form --}}
+    {{else}}
+      {{!-- Create user form --}}
+        <h2 class="sign-in-form-header">Create new account</h2>
+        <form id="createUserForm" {{action createNewUser on="submit"}}>
+          <fieldset>
+            <input
+              class="sign-in-input sign-in-mail"
+              name="email"
+              type="email"
+              placeholder="Email"
+              onchange={{action isEmailExists}}
+              required
+            />
+          </fieldset>
+          <fieldset class="sign-in-pwd-field">
+            <input
+              class="sign-in-input sign-in-pwd"
+              name="password"
+              type={{if isPwd "password" "text"}}
+              placeholder="Password"
+              required
+            />
+            <img
+              onclick={{action (mut isPwd) (if isPwd false true)}}
+              class="sign-in-pwd-toggle"
+              src="/images/eye{{if isPwd "" "-closed"}}.png"
+            />
+          </fieldset>
+          <fieldset class="sign-in-pwd-field">
+            <input
+              class="sign-in-input sign-in-pwd"
+              name="confirmPassword"
+              type={{if isPwdNew "password" "text"}}
+              onchange={{action isSamePwd}}
+              placeholder="Confirm password"
+              required
+            />
+            <img
+              onclick={{action (mut isPwdNew) (if isPwdNew false true)}}
+              class="sign-in-pwd-toggle"
+              src="/images/eye{{if isPwdNew "" "-closed"}}.png"
+            />
+            <p class="sign-in-error-msg">
+              {{#if pwdErrMsg}}
+                {{pwdErrMsg}}
+              {{/if}}
+            </p>
+            <p class="sign-in-error-msg">
+              {{#if errMsg}}
+                {{errMsg}}
+              {{/if}}
+            </p>
+          </fieldset>
+          <div class="sign-in-form-submit-section">
+            <input type="submit" value="Create new account" class="sign-in-btn" />
+            <div class="sign-in-other-options">
+              <button
+                type="button"
+                class="todo-list-btn--link sign-in-btn-link"
+                onclick={{action
+                  (mut showLoginForm)
+                  (if showLoginForm false true)
+                }}
+              >
+                Login to existing account
+                <img
+                  class="sign-in-btn-arrow"
+                  src="/images/right-arrow.png"
+                  alt="right-arrow"
+                />
+              </button>
+            </div>
+          </div>
+        </form>
+      {{!-- Create user form --}}
+    {{/if}}
+  </div>
+</div>

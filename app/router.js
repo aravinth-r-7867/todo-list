@@ -7,6 +7,12 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('tasks');
+  this.route('sign-up');
+  this.route('sign-in');
+  this.route('account');
+  this.route('reset-password');
+  this.route('verify-email');
 });
 
 export default Router;

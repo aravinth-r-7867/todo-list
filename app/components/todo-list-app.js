@@ -17,13 +17,13 @@ export default Component.extend({
       []
     );
   }),
-  addNewRow(){
-    this.set('openedItemIndex', this.firebase.realData.length);
+  addNewRow() {
+    this.set("openedItemIndex", this.firebase.realData.length);
     this.firebase.addNewRow({
-      name: 'Title for new task',
-      description: 'A dummy description for new task',
+      name: "Title for new task",
+      description: "A dummy description for new task",
       status: 0,
-      priority: 0
+      priority: 0,
     });
   }
 });

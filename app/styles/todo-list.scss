@@ -24,6 +24,9 @@
     height: $action-center-height;
     position: sticky;
     top: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
   }
 
   &loader-wrapper {
