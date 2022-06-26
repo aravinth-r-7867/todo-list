@@ -39,24 +39,52 @@
     margin-bottom: 15px;
   }
 
-  &input, &btn {
+  &btn {
     border: 0;
     border-radius: 15px;
     width: 100%;
   }
   
   &input {
-    margin: 10px 0;
     outline: none;
-    padding: 10px 15px 10px 30px;
+  }
+
+  &field::after {
+    content: '';
+    background-color: $primary;
+    bottom: 1px;
+    left: 50%;
+    height: 2px;
+    position: absolute;
+    transition: width .1s ease-in;
+    transform: translateX(-50%);
+    width: 0;
+  }
+
+  &field:focus-within::after {
+    width: 100%;
+  }
+
+  &input::placeholder {
+    font-weight: 300;
+  }
+
+  &input:invalid:not(:placeholder-shown) {
+    border: 1px solid $red-600;
+  }
+
+  &mail, &pwd {
+    background-position: 20px center;
+    background-size: 25px;
+    background-repeat: no-repeat;
   }
   
   &mail {
-    background: #e7e7e7 url('/images/mail.png') 10px center / 15px no-repeat;
+    background-image: url('/images/mail.png');
   }
   
   &pwd {
-    background: #e7e7e7 url('/images/pwd.png') 10px center / 15px no-repeat;
+    background-image: url('/images/pwd.png');
   }
   
   &btn {
@@ -76,7 +104,6 @@
 
   &other-options {
     display: flex;
-    margin-top: 10px;
   }
 
   &btn-arrow {
@@ -86,16 +113,12 @@
 
   &pwd-toggle {
     cursor: pointer;
-    height: 20px;
+    height: 25px;
     position: absolute;
     right: 10px;
-    top: 27px;
+    top: 30px;
     transform: translateY(-50%);
-    width: 20px;
-  }
-
-  &pwd-field {
-    position: relative;
+    width: 25px;
   }
 
   &error-msg{
@@ -107,6 +130,8 @@
     font-size: 12px;
     color: green;
   }
+
+
 }
 
 .signin-form-bg {

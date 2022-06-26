@@ -1,12 +1,12 @@
 import EmberRouter from '@ember/routing/router';
-import config from './config/environment';
+import config from 'todo-list/config/environment';
 
-const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.rootURL
-});
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
+}
 
-Router.map(function() {
+Router.map(function () {
   this.route('tasks');
   this.route('sign-up');
   this.route('sign-in');
@@ -14,5 +14,3 @@ Router.map(function() {
   this.route('reset-password');
   this.route('verify-email');
 });
-
-export default Router;

@@ -1,9 +1,9 @@
-import Component from "@ember/component";
-import { inject as service } from "@ember/service";
-import { firbaseErrorCodeTranslations } from "./../configurations/firebase-error-code";
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
+import { firbaseErrorCodeTranslations } from './../configurations/firebase-error-code';
 
 export default Component.extend({
-  _firebase: service("firebase-api-handling"),
+  _firebase: service('firebase-api-handling'),
   router: service(),
   /**
    * Variables for form control
@@ -11,10 +11,10 @@ export default Component.extend({
   showLoginForm: true,
   showResetPwdForm: false,
 
-  classNames: ["sign-in-wrapper"],
+  classNames: ['sign-in-wrapper'],
   errMsg: false,
   pwdErrMsg: false,
-  successMsgOnResetEmailLink:'',
+  successMsgOnResetEmailLink: '',
   init() {
     this._super(...arguments);
     /**
@@ -28,24 +28,24 @@ export default Component.extend({
     this._firebase
       .isExistingUser()
       .then(() => {
-        this.router.transitionTo("tasks");
+        // this.router.transitionTo('tasks');
       })
       .catch(() => {
-        this.router.transitionTo("/");
+        this.router.transitionTo('/');
       });
   },
   /**
    * Account management methods
    */
   createNewUser() {
-    this.set("errMsg", "");
-    const targetFields = ["email", "password", "confirmPassword"];
+    this.set('errMsg', '');
+    const targetFields = ['email', 'password', 'confirmPassword'];
     const { email, password, confirmPassword } = this.getFormInputs(
-      "createUserForm",
+      'createUserForm',
       targetFields
     );
     const isPwdsNoMatch = password != confirmPassword ? true : false;
-    this.set("pwdErrMsg", isPwdsNoMatch ? "Passwords do not match" : false);
+    this.set('pwdErrMsg', isPwdsNoMatch ? 'Passwords do not match' : false);
     if (isPwdsNoMatch) {
       return;
     }
@@ -55,34 +55,36 @@ export default Component.extend({
         this.router.transitionTo('verify-email');
       })
       .catch(({ code, message }) => {
-        this.set("errMsg", firbaseErrorCodeTranslations[code]);
-        if (code == "auth/email-already-in-use") {
+        this.set('errMsg', firbaseErrorCodeTranslations[code]);
+        if (code == 'auth/email-already-in-use') {
           this.isEmailExists(email);
         }
       });
   },
   signInUser() {
-    const { email, password } = this.getFormInputs(
-      "loginForm",
-      ["email", "password"]
-    );
-    this._firebase.signInUser(email, password)
-      .then(({emailVerified}) => {
+    const { email, password } = this.getFormInputs('loginForm', [
+      'email',
+      'password',
+    ]);
+    this._firebase
+      .signInUser(email, password)
+      .then(({ emailVerified }) => {
         this.router.transitionTo(emailVerified ? 'tasks' : 'verify-email');
       })
       .catch(({ code, message }) => {
-        this.set("errMsg", firbaseErrorCodeTranslations[code]);
+        this.set('errMsg', firbaseErrorCodeTranslations[code]);
       });
   },
   sendResetEmail() {
-    const { email } = this.getFormInputs(
-      "ResetPwdForm",
-      ["email"]
-    );
-    this._firebase.sendResetEmail(email)
+    const { email } = this.getFormInputs('ResetPwdForm', ['email']);
+    this._firebase
+      .sendResetEmail(email)
       .then(() => {
         // Password reset email sent
-        this.set('successMsgOnResetEmailLink', 'Reset password link has been sent to the email address');
+        this.set(
+          'successMsgOnResetEmailLink',
+          'Reset password link has been sent to the email address'
+        );
       })
       .catch(() => {
         // Error while sending password reset email goes here
@@ -98,8 +100,8 @@ export default Component.extend({
     const inputEmail = emailElem.value;
     emailElem.setCustomValidity(
       alreadyExistingEmail && alreadyExistingEmail == inputEmail
-        ? "Email already exists"
-        : ""
+        ? 'Email already exists'
+        : ''
     );
   },
   isSamePwd() {
@@ -108,9 +110,9 @@ export default Component.extend({
     );
     const pwd = this.element.querySelector("input[name='password']").value;
     const confirmPwd = confirmPwdElem.value;
-    const _errMsg = pwd != confirmPwd ? "Password doesn't match" : "";
+    const _errMsg = pwd != confirmPwd ? "Password doesn't match" : '';
     confirmPwdElem.setCustomValidity(_errMsg);
-    this.set("errMsg", _errMsg);
+    this.set('errMsg', _errMsg);
   },
   getFormInputs(formId, targetFields) {
     const formdata = new FormData(document.forms[formId]);

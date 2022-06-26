@@ -1,0 +1,23 @@
+<div class='sign-in-wrapper'>
+  <div class='signin-form-bg'></div>
+
+  <div class='sign-in-main'>
+    <div class='sign-in-form'>
+      {{#if this.showForgotPwdForm}}
+        {{! Forgot password form }}
+        <Form::ForgotPassword @showForgotPwd={{this.showForgotPwdForm}}/>
+        {{! Forgot password form }}
+      {{else}}
+        {{#if this.showSignInForm}}
+          {{! Sign in form }}
+          <Form::SignIn @showSignInForm={{this.showSignInForm}} @showForgotPwd={{this.showForgotPwdForm}}/>
+          {{! Sign in form }}
+        {{else}}
+          {{! Create user form }}
+          <Form::SignUp @showSignInForm={{this.showSignInForm}}/>
+          {{! Create user form }}
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
 
-export function utilLesserThanOrEq(params/*, hash*/) {
+export function utilLesserThanOrEq(params /*, hash*/) {
   return params[0] <= params[1];
 }
 

@@ -4,14 +4,15 @@
   <div class="sign-in-form">
     {{#if (util-and showLoginForm (util-not showResetPwdForm))}}
       {{!-- Login form --}}
-        <h2 class="sign-in-form-header">Login</h2>
+        <h2 class="display-6">Login</h2>
         <form id="loginForm" {{action signInUser on="submit"}}>
           <fieldset>
-            <input
+            <Input
               class="sign-in-input sign-in-mail"
               name="email"
-              type="email"
+              @type="email"
               placeholder="Email"
+              @value={{this.formData.email}}
               required
             />
           </fieldset>
