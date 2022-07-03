@@ -1,37 +1,10 @@
 <div class='fs-3 fw-light'>Login</div>
 <form id="loginForm" {{on 'submit' this.signInUser}}>
-  <fieldset class="mt-4 mb-3 position-relative sign-in-field">
-    {{!-- template-lint-disable require-input-label --}}
-    <Input
-      @type='email'
-      @value={{this.formData.email}}
-      class='border-bottom border-end-0 border-start-0 border-top-0 ember-text-field ember-view px-5 py-2 rounded sign-in-input sign-in-mail w-100'
-      name='email'
-      placeholder='Email'
-      required
-      {{on 'input' this.clearCustomValidation}}
-    />
-  </fieldset>
-  <fieldset class='mb-3 position-relative sign-in-field'>
-    {{!-- template-lint-disable require-input-label --}}
-    <Input
-      @type={{if this.isPwd 'password' 'text'}}
-      @value={{this.formData.password}}
-      class='border-bottom border-end-0 border-start-0 border-top-0 ember-text-field ember-view px-5 py-2 rounded sign-in-input sign-in-pwd w-100'
-      name='password'
-      placeholder='Password'
-      minlength="6"
-      required
-      {{on 'input' this.clearCustomValidation}}
-    />
-    {{!-- template-lint-disable no-invalid-interactive --}}
-    <img
-      {{on 'click' this.togglePasswordField}}
-      class='sign-in-pwd-toggle'
-      src='/images/eye{{if this.isPwd "" "-closed"}}.png'
-      alt='toggle-icon'
-    />
-  </fieldset>
+
+  <Form::Field::Email @value={{this.formData.email}} @clearCustomValidation={{this.clearCustomValidation}}/>
+
+  <Form::Field::Password @value={{this.formData.password}} @clearCustomValidation={{this.clearCustomValidation}}/>
+  
   {{#if this.formSubmitMsg}}
     <div class="alert alert-danger d-flex align-items-center" role="alert">
       <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -41,6 +14,7 @@
       <button {{on 'click' this.closeFormSubmitMsg}} type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   {{/if}}
+
   <div class='sign-in-form-submit-section'>
     <button type='submit' class='sign-in-btn'>
       {{#if this.showAPILoader}}
@@ -50,22 +24,22 @@
       {{/if}}
       Login
     </button>
+
     <Form::GoogleAuth @btnText="Sign in via Google"/>
+
     <div class='sign-in-other-options'>
       <button
         type='button'
         class='todo-list-btn--link sign-in-btn-link'
-        onclick={{action
-          (mut @showForgotPwd)
-          (if @showForgotPwd false true)
-        }}
+        {{on 'click' @toggleForgotPwdForm}}
       >
         Forgot password?
       </button>
+
       <button
         type='button'
         class='todo-list-btn--link sign-in-btn-link'
-        onclick={{action (mut @showSignInForm) (if @showSignInForm false true)}}
+        {{on 'click' @toggleSignInForm}}
       >
         Create new account
         <img
@@ -75,5 +49,6 @@
         />
       </button>
     </div>
+  
   </div>
 </form>

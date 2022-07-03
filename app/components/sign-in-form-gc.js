@@ -25,4 +25,12 @@ export default class SignInFormGcComponent extends Component {
   @action signInViaGoogle() {
     this.firebaseAuth.setUpGoogleAuth();
   }
+
+  @action toggleSignInForm() {
+    this.showSignInForm = !this.showSignInForm;
+  }
+
+  @action toggleForgotPwdForm() {
+    this.showForgotPwdForm = !this.showForgotPwdForm;
+  }
 }

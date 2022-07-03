@@ -1,0 +1,12 @@
+<fieldset class='mt-4 mb-3 position-relative sign-in-field'>
+  {{! template-lint-disable require-input-label }}
+  <Input
+    @type='email'
+    @value={{@value}}
+    class='border-bottom border-end-0 border-start-0 border-top-0 ember-text-field ember-view px-5 py-2 rounded sign-in-input sign-in-mail w-100'
+    name='email'
+    placeholder='Email'
+    required
+    {{on 'input' @clearCustomValidation}}
+  />
+</fieldset>

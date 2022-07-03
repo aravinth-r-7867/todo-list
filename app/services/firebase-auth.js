@@ -16,10 +16,22 @@ export default class FirebaseAuthService extends Service {
     });
   }
 
-  @action async signIn({email, password}) {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
+  @action signIn({ email, password }) {
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+  }
+
+  @action createNewUser({ email, password }) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password);
+  }
+
+  @action sendResetPwdEmail(email) {
+    return firebase.auth().sendPasswordResetEmail(email);
+  }
+
+  @action signOut() {
+    firebase.auth().signOut().then(()=>{
+      console.log('Sign out successfully');
+    });
   }
 
   @action async isUserLoggedIn() {

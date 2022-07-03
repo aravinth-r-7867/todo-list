@@ -6,4 +6,5 @@ export default firbaseErrorCodeTranslations = {
   'auth/email-already-in-use':
     'This email address is already associated with another user. Please try any other',
   'auth/weak-password': 'Password should have minimum 6 characters',
+  'auth/password-no-match': 'Confirm password should be same as password',
 };

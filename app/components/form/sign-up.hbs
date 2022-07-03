@@ -1,71 +1,57 @@
-<h1 class='display-6'>Create new account</h1>
+<h1 class='fs-3 fw-light'>Create new account</h1>
 
-{{!-- <form id="createUserForm" {{action createNewUser on="submit"}}> --}}
-<form id='createUserForm'>
-  <fieldset>
-    <input
-      class='sign-in-input sign-in-mail'
-      name='email'
-      type='email'
-      placeholder='Email'
-      {{!-- onchange={{action isEmailExists}} --}}
-      required
-    />
-  </fieldset>
-  <fieldset class='sign-in-pwd-field'>
-    <input
-      class='sign-in-input sign-in-pwd'
-      name='password'
-      type={{if isPwd 'password' 'text'}}
-      placeholder='Password'
-      required
-    />
-    <img
-      onclick={{action (mut isPwd) (if isPwd false true)}}
-      class='sign-in-pwd-toggle'
-      src='/images/eye{{if isPwd "" "-closed"}}.png'
-    />
-  </fieldset>
-  <fieldset class='sign-in-pwd-field'>
-    <input
-      class='sign-in-input sign-in-pwd'
-      name='confirmPassword'
-      type={{if isPwdNew 'password' 'text'}}
-      {{!-- onchange={{action isSamePwd}} --}}
-      placeholder='Confirm password'
-      required
-    />
-    <img
-      onclick={{action (mut isPwdNew) (if isPwdNew false true)}}
-      class='sign-in-pwd-toggle'
-      src='/images/eye{{if isPwdNew "" "-closed"}}.png'
-    />
-    <p class='sign-in-error-msg'>
-      {{#if pwdErrMsg}}
-        {{pwdErrMsg}}
-      {{/if}}
-    </p>
-    <p class='sign-in-error-msg'>
-      {{#if errMsg}}
-        {{errMsg}}
-      {{/if}}
-    </p>
-  </fieldset>
+<form id="createUserForm" {{on 'submit' this.createNewUser}}>
+  <Form::Field::Email
+    @value={{this.formData.email}}
+    @clearCustomValidation={{this.clearCustomValidation}}
+  />
+
+  <Form::Field::Password
+    @value={{this.formData.password}}
+    @clearCustomValidation={{this.clearCustomValidation}}
+  />
+
+  <Form::Field::Password
+    @value={{this.formData.confirmPassword}}
+    @clearCustomValidation={{this.clearCustomValidation}}
+    @placeholder='Confirm password'
+    @name='confirm-password'
+  />
+
+  {{#if this.formSubmitMsg}}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div>
+        {{this.formSubmitMsg}}
+      </div>
+      <button {{on 'click' this.closeFormSubmitMsg}} type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {{/if}}
+
   <div class='sign-in-form-submit-section'>
-    <input type='submit' value='Create new account' class='sign-in-btn' />
-    <Form::GoogleAuth @btnText="Sign up via Google"/>
+    <button type='submit' class='sign-in-btn'>
+      {{#if this.showAPILoader}}
+        <div class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      {{/if}}
+      Create new account
+    </button>
+
+    <Form::GoogleAuth @btnText='Sign up via Google' />
+
     <div class='sign-in-other-options'>
       <button
         type='button'
         class='todo-list-btn--link sign-in-btn-link'
-        onclick={{action (mut @showSignInForm) (if @showSignInForm false true)}}
+        {{on 'click' @toggleSignInForm}}
       >
-        Login to existing account
         <img
           class='sign-in-btn-arrow'
-          src='/images/right-arrow.png'
+          src='/images/left-arrow.png'
           alt='right-arrow'
         />
+        Back to login
       </button>
     </div>
   </div>
