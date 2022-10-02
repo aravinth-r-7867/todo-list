@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
 
-export function utilAnd(params/*, hash*/) {
+export function utilAnd(params /*, hash*/) {
   return params[0] && params[1];
 }
 

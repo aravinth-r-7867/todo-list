@@ -1,0 +1,76 @@
+<div class='fs-3 fw-light'>Login</div>
+<form id='loginForm' {{on 'submit' this.signInUser}}>
+
+  <Form::Field::Email
+    @value={{this.formData.email}}
+    @clearCustomValidation={{this.clearCustomValidation}}
+  />
+
+  <Form::Field::Password
+    @value={{this.formData.password}}
+    @clearCustomValidation={{this.clearCustomValidation}}
+  />
+
+  {{#if this.formSubmitMsg}}
+    <div class='alert alert-danger d-flex align-items-center' role='alert'>
+      <svg
+        class='bi flex-shrink-0 me-2'
+        width='24'
+        height='24'
+        role='img'
+        aria-label='Danger:'
+      ><use xlink:href='#exclamation-triangle-fill'></use></svg>
+      <div>
+        {{this.formSubmitMsg}}
+      </div>
+      <button
+        {{on 'click' this.closeFormSubmitMsg}}
+        type='button'
+        class='btn-close'
+        data-bs-dismiss='alert'
+        aria-label='Close'
+      ></button>
+    </div>
+  {{/if}}
+
+  <div class='sign-in-form-submit-section'>
+    <button type='submit' class='sign-in-btn'>
+      {{#if this.showAPILoader}}
+        <div class='spinner-border spinner-border-sm' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      {{/if}}
+      Login
+    </button>
+
+    <Form::GoogleAuth @btnText='Sign in via Google' />
+
+    <div class='sign-in-other-options row pt-2'>
+      <div class='col-12 col-sm-6'>
+        <button
+          type='button'
+          class='btn btn-link sign-in-btn-link'
+          {{on 'click' @toggleForgotPwdForm}}
+        >
+          Forgot password?
+        </button>
+      </div>
+
+      <div class='col-12 col-sm-6'>
+        <button
+          type='button'
+          class='btn btn-link sign-in-btn-link'
+          {{on 'click' @toggleSignInForm}}
+        >
+          Create new account
+          <img
+            class='sign-in-btn-arrow'
+            src='/images/right-arrow.png'
+            alt='right-arrow'
+          />
+        </button>
+      </div>
+    </div>
+
+  </div>
+</form>
