@@ -9,7 +9,6 @@
     justify-content: center;
     grid-template-columns: 1fr 1fr;
     min-height: 100vh;
-    min-width: 100vw;
 
     @include target-tablet {
       grid-template-columns: 0 1fr;

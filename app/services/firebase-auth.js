@@ -1,19 +1,24 @@
 import Service from '@ember/service';
 import firebase from 'firebase';
 import { action } from '@ember/object';
+import { inject } from '@ember/service';
 
 export default class FirebaseAuthService extends Service {
+  @inject router;
+
   @action setup() {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyCzoqwBuBiLEfHY1KehP5vMDEHwY86oTtc',
-      authDomain: 'todo-list-ca9c9.firebaseapp.com',
-      databaseURL: 'https://todo-list-ca9c9-default-rtdb.firebaseio.com',
-      projectId: 'todo-list-ca9c9',
-      storageBucket: 'todo-list-ca9c9.appspot.com',
-      messagingSenderId: '382852821194',
-      appId: '1:382852821194:web:465a357d22134bcb150433',
-      measurementId: 'G-CHSSMN266Q',
-    });
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: 'AIzaSyCzoqwBuBiLEfHY1KehP5vMDEHwY86oTtc',
+        authDomain: 'todo-list-ca9c9.firebaseapp.com',
+        databaseURL: 'https://todo-list-ca9c9-default-rtdb.firebaseio.com',
+        projectId: 'todo-list-ca9c9',
+        storageBucket: 'todo-list-ca9c9.appspot.com',
+        messagingSenderId: '382852821194',
+        appId: '1:382852821194:web:465a357d22134bcb150433',
+        measurementId: 'G-CHSSMN266Q',
+      });
+    }
   }
 
   @action signIn({ email, password }) {
@@ -29,9 +34,13 @@ export default class FirebaseAuthService extends Service {
   }
 
   @action signOut() {
-    firebase.auth().signOut().then(()=>{
-      console.log('Sign out successfully');
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log('Sign out successfully');
+        this.router.transitionTo('index');
+      });
   }
 
   @action async isUserLoggedIn() {
@@ -68,5 +77,9 @@ export default class FirebaseAuthService extends Service {
         var credential = error.credential;
         // ...
       });
+  }
+
+  @action async verifyEmail() {
+    return firebase.auth().currentUser.sendEmailVerification();
   }
 }

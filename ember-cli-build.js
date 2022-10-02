@@ -8,6 +8,9 @@ module.exports = function (defaults) {
     sassOptions: {
       includePaths: ['node_modules/bootstrap/scss'],
     },
+    fingerprint: {
+      enabled: false,
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated

@@ -1,0 +1,161 @@
+<div class='col-12'>
+  {{!Headers}}
+  <header>
+    <div class='d-flex justify-content-between align-items-center p-2'>
+      <h1 class='display-5'>My tasks</h1>
+      <div>
+        {{#unless @user.emailVerified}}
+          <button
+            {{on 'click' this.sendVerifyEmail}}
+            type='button'
+            class='btn btn-warning'
+          >
+            Verify email
+          </button>
+        {{/unless}}
+
+        <button
+          {{on 'click' this.firebaseAuth.signOut}}
+          type='button'
+          class='btn btn-danger'
+        >Sign out</button>
+      </div>
+    </div>
+  </header>
+  {{!Headers}}
+</div>
+
+{{!Filters}}
+<div class='col-md-4 col-12 px-3'>
+  {{! template-lint-disable require-input-label }}
+  <Input
+    @type='text'
+    class='form-control'
+    placeholder='Search tasks here...'
+    @value={{this.searchTerm}}
+  />
+</div>
+{{!Filters}}
+
+<div class='col-12'>
+  {{#if this.this.firebaseDb.body}}
+    <section>
+      <div class='table-responsive'>
+        <table class='table table-striped'>
+          <thead>
+            <tr>
+              <th>
+                <div class='form-check d-flex justify-content-center'>
+                  <Input
+                    class='form-check-input'
+                    @type='checkbox'
+                    @checked={{this.isAllTasksSelected}}
+                    id='flexCheckDefault'
+                    {{on 'input' this.selectAll}}
+                  />
+                </div>
+              </th>
+              <th>
+                Tasks
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#if this.filteredTasks}}
+              {{#each this.filteredTasks as |item index|}}
+                <tr class='{{if item.checkbox.selected "task__completed"}}'>
+                  <th class='table-checkbox-th'>
+                    <div class='form-check d-flex justify-content-center'>
+                      <Input
+                        class='form-check-input'
+                        @checked={{item.checkbox.selected}}
+                        @type='checkbox'
+                        id='flexCheckDefault1'
+                        {{on 'input' (fn this.selectTask index)}}
+                      />
+                    </div>
+                  </th>
+                  <td>
+                    {{#if item.checkbox.selected}}
+                      <p
+                        class='text-muted text-decoration-line-through'
+                      >{{item.task.value}}</p>
+                    {{else}}
+                      <LinkTo @route='task' @model={{item.id}}>
+                        {{item.task.value}}
+                      </LinkTo>
+                    {{/if}}
+                  </td>
+                </tr>
+              {{/each}}
+            {{else}}
+              <tr>
+                <th>
+                </th>
+                <td>
+                  No items found for
+                  <b>{{this.searchTerm}}</b>
+                </td>
+              </tr>
+            {{/if}}
+          </tbody>
+        </table>
+
+        <div class='p-2'>
+          {{#if this.showAddItemInput}}
+            <form {{on 'submit' this.addNewRow}}>
+              {{! template-lint-disable require-input-label }}
+              <Input
+                class='form-control form-control-sm mb-1'
+                @type='text'
+                placeholder='Enter task here'
+                @value={{this.newTaskName}}
+                required
+              />
+              <button type='submit' class='btn btn-primary'>Add</button>
+              <button
+                type='button'
+                class='btn btn-secondary'
+                {{on 'click' this.toggleAddItemInput}}
+              >Cancel</button>
+            </form>
+          {{else}}
+            <button
+              class='btn btn-secondary'
+              type='button'
+              {{on 'click' this.toggleAddItemInput}}
+            >Add item</button>
+          {{/if}}
+        </div>
+      </div>
+    </section>
+  {{else}}
+    <TableLoader />
+  {{/if}}
+</div>
+
+<div class='position-fixed bottom-0 end-0 p-3 email-verify-sent-toast'>
+  <div
+    id='liveToast'
+    class='toast w-auto {{if this.showVerifyEmailSentMsg "show" "hide"}}'
+    role='alert'
+    aria-live='assertive'
+    aria-atomic='true'
+  >
+    <div class='toast-header'>
+      <strong class='me-auto'>Email verification sent!</strong>
+      <button
+        type='button'
+        class='btn-close'
+        data-bs-dismiss='toast'
+        aria-label='Close'
+      ></button>
+    </div>
+    <div class='toast-body'>
+      We have sent a verification link to
+      <span class='fw-bold'>
+        {{@user.email}}
+      </span>
+    </div>
+  </div>
+</div>

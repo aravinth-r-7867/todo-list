@@ -13,4 +13,6 @@ Router.map(function () {
   this.route('account');
   this.route('reset-password');
   this.route('verify-email');
+  this.route('index', { path: '/' });
+  this.route('task', { path: '/task/:task_id' });
 });
